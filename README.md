@@ -1,70 +1,45 @@
-# KeyQuest Academy Offline
+# KeyQuest Academy Offline — Windows 7/8 Legacy Edition
 
-The local-first desktop edition of KeyQuest Academy. The project is packaged for Linux as a Debian installer (`.deb`) and AppImage, and for Windows as an NSIS setup (`.exe`) and MSI installer.
+This is a separate compatibility branch for an experimental Windows 7 and Windows 8/8.1 desktop build. The normal desktop edition remains on `main` and targets supported Windows 10/11 systems.
 
-## What the desktop app is designed to do
+## Legacy build details
 
-- Run lessons, typing tests, games and learning guides without an internet connection.
-- Save practice progress locally on the device.
-- Bundle its interface and assets in the desktop application.
-- Avoid website hosting, cloud accounts, advertising, analytics and remote fonts.
-- Preserve the KeyQuest learning content and classroom-inspired design.
+- Uses the Tauri 2.11.5 generation, the last Tauri 2.x line that retained Windows 7 compatibility.
+- Uses the Rust 1.77.2 toolchain for the legacy Windows target.
+- Compiles the frontend for Chromium/WebView2 109.
+- Configures the installer to embed the WebView2 Evergreen offline installer. Microsoft states that WebView2 109 is the final runtime for Windows 7 and Windows 8/8.1.
+- Builds x64 Windows NSIS (`.exe`) and MSI installers.
+- Uses a separate app identifier so this edition does not share its app identity with the normal Windows edition.
 
-## Windows downloads
+## Important security limitation
 
-The Windows build targets supported Windows 10 and Windows 11 systems. Windows 7 and Windows 8/8.1 are not supported by the current WebView2 runtime. Compatibility with future Windows releases depends on their support for the Windows WebView2 runtime.
+WebView2 109 no longer receives new features, security updates or bug fixes. Windows 7 and Windows 8/8.1 are also out of support. This edition is intended only for offline educational use on older computers. Do not use it for banking, passwords, sensitive information or general web browsing.
 
-When a build completes, download the `keyquest-windows-installers` artifact from the latest successful workflow run. Choose the `.exe` setup for the normal guided installation, or the `.msi` package for managed installation.
+This is an experimental compatibility build. A successful CI build does not prove compatibility on every Windows 7/8 computer. It must still be installed and tested on real Windows 7 and Windows 8/8.1 machines before compatibility can be confirmed.
 
-## Linux downloads
+## Download
 
-When a build completes, open the repository's **Actions** tab, select the latest **Build Linux installers** run, and download the `keyquest-linux-installers` artifact. It contains the Linux `.deb` and `.AppImage` packages. The Windows build is available in the separate `keyquest-windows-installers` artifact.
+Open the repository's **Actions** tab and select the latest successful **Build Windows 7 and 8 Legacy** run. Download the `keyquest-windows-7-8-legacy` artifact. Choose the `.exe` guided installer or the `.msi` package.
 
-A tagged release (for example, `v1.0.0`) will also publish the installer files on the repository's Releases page.
+The current workflow builds x64 installers only. 32-bit Windows is not covered by this build.
 
-### Install the Debian package
+## Offline use
 
-1. Download the `.deb` file.
-2. Open your Downloads folder.
-3. Double-click the installer.
-4. Open it with Linux Mint's Software Manager or package installer.
-5. Select **Install**.
-
-No Terminal commands are required for the normal installation flow. Linux Mint may ask for your administrator password to install software.
-
-### Run the AppImage
-
-1. Download the `.AppImage` file.
-2. Right-click it and open **Properties**.
-3. Under **Permissions**, enable **Allow executing file as program**.
-4. Double-click the file to launch KeyQuest Academy.
-
-The AppImage is portable; it does not install a menu entry automatically.
+The installer includes the WebView2 offline installer, so installing the legacy app does not depend on downloading WebView2 during setup. After installation, KeyQuest Academy's lessons, tests, guides and games are designed to run locally.
 
 ## Development
 
-Requirements: Bun, Rust, and the Linux system libraries required by Tauri 2.
+Requirements: Bun and the Rust 1.77.2 toolchain.
 
 ```sh
 bun install
 bun run dev
 ```
 
-Run the native desktop shell during development:
-
-```sh
-bun run dev:desktop
-```
-
-Build the desktop bundles locally:
-
-```sh
-bun run build
-bun run tauri build --bundles deb,appimage
-```
-
-The GitHub Actions workflow builds Linux installers automatically when changes are pushed to `main`, and can also be run manually from the Actions tab.
+The legacy installer workflow runs on pushes to the `legacy-windows-7-8` branch and can also be started manually from GitHub Actions.
 
 ## Project separation
 
-This repository is the offline desktop edition. The online KeyQuest Academy website remains in the separate `keyquest-academy` repository.
+- `main`: normal offline desktop edition for Windows 10/11 and Linux.
+- `legacy-windows-7-8`: experimental legacy Windows installer build.
+- `keyquest-academy`: separate online website repository.
