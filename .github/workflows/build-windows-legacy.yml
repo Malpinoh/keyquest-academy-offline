@@ -1,0 +1,58 @@
+name: Build Windows 7 and 8 Legacy
+
+on:
+  push:
+    branches:
+      - legacy-windows-7-8
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legacy-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-legacy-windows:
+    name: Build Windows 7 and 8 legacy installers
+    runs-on: windows-2022
+    steps:
+      - name: Check out legacy source
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # Tauri 2.11 is the last Tauri 2.x line that retained Windows 7 compatibility.
+      # Rust 1.77.2 is used to retain the Windows 7 target compatibility of that line.
+      - name: Set up Rust 1.77.2
+        uses: dtolnay/rust-toolchain@1.77.2
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      - name: Install JavaScript dependencies
+        run: bun install
+
+      - name: Generate application icons with Tauri 2.11
+        run: bunx --bun @tauri-apps/cli@2.11.4 icon src-tauri/icons/icon.svg
+
+      - name: Build legacy Windows installers
+        run: bunx --bun @tauri-apps/cli@2.11.4 build --bundles nsis,msi
+
+      - name: Upload legacy Windows installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: keyquest-windows-7-8-legacy
+          path: |
+            src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/release/bundle/msi/*.msi
+          if-no-files-found: error
+          retention-days: 30
