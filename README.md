@@ -54,7 +54,7 @@ Build the desktop bundles locally:
 
 ```sh
 bun run build
-bun run tauri build -- --bundles deb,appimage
+bun run tauri build --bundles deb,appimage
 ```
 
 The GitHub Actions workflow builds Linux installers automatically when changes are pushed to `main`, and can also be run manually from the Actions tab.

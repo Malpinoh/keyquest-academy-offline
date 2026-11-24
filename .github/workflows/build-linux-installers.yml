@@ -63,7 +63,7 @@ jobs:
           rsvg-convert -w 512 -h 512 src-tauri/icons/icon.svg > src-tauri/icons/icon.png
 
       - name: Build Linux installers
-        run: bun run tauri build -- --bundles deb,appimage
+        run: bun run tauri build --bundles deb,appimage
 
       - name: Upload installer files
         uses: actions/upload-artifact@v4
