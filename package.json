@@ -1,5 +1,5 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "keyquest-academy-offline",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -11,7 +11,10 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "tauri": "tauri",
+    "dev:desktop": "tauri dev",
+    "build:desktop": "vite build"
   },
   "overrides": {
     "rolldown": "1.2.1"
@@ -93,6 +96,7 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
     "vite": "8.1.5",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "@tauri-apps/cli": "2.12.6"
   }
 }

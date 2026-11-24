@@ -1,0 +1,12 @@
+[package]
+name = "keyquest-academy-offline"
+version = "1.0.0"
+description = "KeyQuest Academy offline desktop application"
+authors = ["MALPINOH"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2.7.6", features = [] }
+
+[dependencies]
+tauri = { version = "2.12.7", features = [] }
