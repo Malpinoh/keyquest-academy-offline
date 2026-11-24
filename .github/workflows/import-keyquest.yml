@@ -1,0 +1,38 @@
+name: Import KeyQuest source
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/import-keyquest.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout offline repository
+        uses: actions/checkout@v4
+
+      - name: Clone current KeyQuest source
+        run: |
+          rm -rf /tmp/keyquest-source
+          git clone --depth 1 https://github.com/Malpinoh/keyquest-academy.git /tmp/keyquest-source
+
+      - name: Copy source snapshot
+        run: |
+          find /tmp/keyquest-source -mindepth 1 -maxdepth 1 ! -name .git -exec cp -a {} . \;
+          rm -f .env
+          cat > .env.example <<'EOF'
+# Offline KeyQuest does not require Supabase or cloud credentials.
+EOF
+
+      - name: Commit imported source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Import KeyQuest Academy source snapshot [skip ci]" || exit 0
+          git push
