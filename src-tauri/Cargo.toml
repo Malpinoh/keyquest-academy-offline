@@ -10,5 +10,8 @@ tauri-build = { version = "=2.6.3", features = [] }
 
 [dependencies]
 tauri = { version = "=2.11.5", features = [] }
+# Pin Tauri's shared utility crate to the release used by the 2.11 line.
+# Newer releases pull urlpattern 0.6, whose manifest needs Cargo edition2024 support.
+tauri-utils = "=2.9.3"
 # Keep the dependency compatible with the Rust toolchain required by this legacy target.
 time = "=0.3.44"
