@@ -10,22 +10,61 @@
       </StackPanel>
       <TextBlock DockPanel.Dock="Bottom" Text="Offline desktop edition" Foreground="#D9E6D8" FontSize="11" Margin="0,0,0,6"/>
     </DockPanel></Border>
-    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto"><StackPanel Margin="42">
-      <TextBlock x:Name="PageEyebrow" Text="WELCOME BACK" Foreground="#64776B" FontSize="12" FontWeight="Bold"/>
-      <TextBlock x:Name="PageTitle" Text="Learn to type with confidence." Foreground="{StaticResource Ink}" FontSize="32" FontWeight="Bold" Margin="0,8,0,8"/>
-      <TextBlock x:Name="PageDescription" Text="Build accuracy, develop speed, and make progress one lesson at a time." Foreground="#637066" FontSize="15" TextWrapping="Wrap" Margin="0,0,0,28"/>
-      <Border Background="#FFFFFF" CornerRadius="12" Padding="26" Margin="0,0,0,18"><StackPanel>
-        <TextBlock Text="YOUR LEARNING PATH" Foreground="#64776B" FontSize="11" FontWeight="Bold"/>
-        <TextBlock Text="Start with the home row" Foreground="{StaticResource Ink}" FontSize="22" FontWeight="Bold" Margin="0,8,0,5"/>
-        <TextBlock Text="Place your fingers on ASDF and JKL; before moving on to the other rows." Foreground="#637066" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,16"/>
-        <Button Content="Explore lessons" Width="145" HorizontalAlignment="Left" Click="Lessons_Click"/>
-      </StackPanel></Border>
-      <TextBlock Text="CORE AREAS" Foreground="#64776B" FontSize="11" FontWeight="Bold" Margin="0,4,0,12"/>
-      <UniformGrid Columns="2">
-        <Border Background="#E9E3D5" CornerRadius="10" Padding="20" Margin="0,0,12,12"><StackPanel><TextBlock Text="21" FontSize="28" FontWeight="Bold" Foreground="{StaticResource Forest}"/><TextBlock Text="Structured lessons" Foreground="{StaticResource Ink}" FontSize="14"/></StackPanel></Border>
-        <Border Background="#E9E3D5" CornerRadius="10" Padding="20" Margin="0,0,12,12"><StackPanel><TextBlock Text="Practice" FontSize="22" FontWeight="Bold" Foreground="{StaticResource Forest}"/><TextBlock Text="Build typing accuracy" Foreground="{StaticResource Ink}" FontSize="14"/></StackPanel></Border>
-      </UniformGrid>
-      <TextBlock x:Name="StatusText" Text="Native Windows edition — initial interface scaffold." Foreground="#7A847C" FontSize="11" Margin="0,16,0,0"/>
-    </StackPanel></ScrollViewer>
+    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto"><Grid Margin="42">
+      <StackPanel x:Name="HomePanel">
+        <TextBlock Text="WELCOME BACK" Foreground="#64776B" FontSize="12" FontWeight="Bold"/>
+        <TextBlock Text="Learn to type with confidence." Foreground="{StaticResource Ink}" FontSize="32" FontWeight="Bold" Margin="0,8,0,8"/>
+        <TextBlock Text="Build accuracy, develop speed, and make progress one lesson at a time." Foreground="#637066" FontSize="15" TextWrapping="Wrap" Margin="0,0,0,28"/>
+        <Border Background="#FFFFFF" CornerRadius="12" Padding="26" Margin="0,0,0,18"><StackPanel>
+          <TextBlock Text="YOUR LEARNING PATH" Foreground="#64776B" FontSize="11" FontWeight="Bold"/>
+          <TextBlock Text="Start with the home row" Foreground="{StaticResource Ink}" FontSize="22" FontWeight="Bold" Margin="0,8,0,5"/>
+          <TextBlock Text="Place your fingers on ASDF and JKL; before moving on to the other rows." Foreground="#637066" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,16"/>
+          <Button Content="Explore lessons" Width="145" HorizontalAlignment="Left" Click="Lessons_Click"/>
+        </StackPanel></Border>
+        <TextBlock Text="CORE AREAS" Foreground="#64776B" FontSize="11" FontWeight="Bold" Margin="0,4,0,12"/>
+        <UniformGrid Columns="2">
+          <Border Background="#E9E3D5" CornerRadius="10" Padding="20" Margin="0,0,12,12"><StackPanel><TextBlock Text="21" FontSize="28" FontWeight="Bold" Foreground="{StaticResource Forest}"/><TextBlock Text="Structured lessons" Foreground="{StaticResource Ink}" FontSize="14"/></StackPanel></Border>
+          <Border Background="#E9E3D5" CornerRadius="10" Padding="20" Margin="0,0,12,12"><StackPanel><TextBlock Text="Practice" FontSize="22" FontWeight="Bold" Foreground="{StaticResource Forest}"/><TextBlock Text="Build typing accuracy" Foreground="{StaticResource Ink}" FontSize="14"/></StackPanel></Border>
+        </UniformGrid>
+        <TextBlock x:Name="StatusText" Text="Native Windows edition — curriculum imported." Foreground="#7A847C" FontSize="11" Margin="0,16,0,0"/>
+      </StackPanel>
+      <Grid x:Name="LessonPanel" Visibility="Collapsed">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+          <TextBlock Text="LESSON LIBRARY" Foreground="#64776B" FontSize="12" FontWeight="Bold"/>
+          <TextBlock Text="Your typing lessons" Foreground="{StaticResource Ink}" FontSize="30" FontWeight="Bold" Margin="0,7,0,5"/>
+          <TextBlock x:Name="LessonSummary" Text="21 structured lessons across five skill levels." Foreground="#637066" FontSize="14"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="290"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+          <Border Grid.Column="0" Background="#FFFFFF" CornerRadius="10" Padding="12" Margin="0,0,18,0">
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Top" Text="ALL LESSONS" Foreground="#64776B" FontWeight="Bold" FontSize="11" Margin="4,4,4,12"/>
+              <ListBox x:Name="LessonList" BorderThickness="0" DisplayMemberPath="Title" SelectionChanged="LessonList_SelectionChanged" FontSize="14"/>
+            </DockPanel>
+          </Border>
+          <Border Grid.Column="1" Background="#FFFFFF" CornerRadius="10" Padding="24">
+            <StackPanel>
+              <TextBlock x:Name="SelectedLevel" Text="BEGINNER" Foreground="#64776B" FontSize="11" FontWeight="Bold"/>
+              <TextBlock x:Name="SelectedLessonTitle" Text="Home Row Basics" Foreground="{StaticResource Ink}" FontSize="25" FontWeight="Bold" Margin="0,7,0,5"/>
+              <TextBlock x:Name="SelectedLessonDescription" TextWrapping="Wrap" Foreground="#637066" FontSize="14" Margin="0,0,0,8"/>
+              <TextBlock x:Name="SelectedLessonTime" Foreground="#64776B" FontSize="12" Margin="0,0,0,20"/>
+              <TextBlock Text="EXERCISES" Foreground="#64776B" FontSize="11" FontWeight="Bold" Margin="0,0,0,8"/>
+              <ListBox x:Name="ExerciseList" Height="145" DisplayMemberPath="Title" SelectionChanged="ExerciseList_SelectionChanged" Margin="0,0,0,16"/>
+              <TextBlock x:Name="ExerciseTitle" Text="Find your home row" Foreground="{StaticResource Ink}" FontSize="18" FontWeight="Bold" Margin="0,0,0,8"/>
+              <Border Background="#F3F0E8" CornerRadius="8" Padding="16" Margin="0,0,0,10">
+                <TextBlock x:Name="ExerciseTarget" Text="asdf jkl;" FontFamily="Consolas" FontSize="25" FontWeight="Bold" Foreground="{StaticResource Forest}" TextWrapping="Wrap"/>
+              </Border>
+              <TextBlock x:Name="ExerciseInstruction" TextWrapping="Wrap" Foreground="#637066" FontSize="14"/>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </Grid>
+      <StackPanel x:Name="InfoPanel" Visibility="Collapsed">
+        <TextBlock x:Name="InfoEyebrow" Text="TYPING PRACTICE" Foreground="#64776B" FontSize="12" FontWeight="Bold"/>
+        <TextBlock x:Name="InfoTitle" Text="Practice with purpose" Foreground="{StaticResource Ink}" FontSize="30" FontWeight="Bold" Margin="0,8"/>
+        <TextBlock x:Name="InfoDescription" TextWrapping="Wrap" Foreground="#637066" FontSize="15"/>
+      </StackPanel>
+    </Grid></ScrollViewer>
   </Grid>
 </Window>
