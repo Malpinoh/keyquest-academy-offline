@@ -10,3 +10,5 @@ tauri-build = { version = "=2.6.3", features = [] }
 
 [dependencies]
 tauri = { version = "=2.11.5", features = [] }
+# Keep the dependency compatible with the Rust toolchain required by this legacy target.
+time = "=0.3.44"
