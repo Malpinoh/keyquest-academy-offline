@@ -6,7 +6,7 @@
         <TextBlock Text="KEYQUEST" Foreground="#FFFFFF" FontSize="25" FontWeight="Bold"/><TextBlock Text="ACADEMY" Foreground="#D9E6D8" FontSize="13" Margin="1,0,0,28"/>
         <TextBlock Text="YOUR TYPING CLASSROOM" Foreground="#D9E6D8" FontSize="10" FontWeight="Bold" Margin="0,0,0,18"/>
         <Button Content="Home" Click="Home_Click" HorizontalContentAlignment="Left"/><Button Content="Lessons" Click="Lessons_Click" HorizontalContentAlignment="Left"/>
-        <Button Content="Typing Practice" Click="Practice_Click" HorizontalContentAlignment="Left"/><Button Content="Progress" Click="Progress_Click" HorizontalContentAlignment="Left"/>
+        <Button Content="Typing Practice" Click="Practice_Click" HorizontalContentAlignment="Left"/><Button Content="Typing Games" Click="Games_Click" HorizontalContentAlignment="Left"/><Button Content="Progress" Click="Progress_Click" HorizontalContentAlignment="Left"/>
       </StackPanel>
       <TextBlock DockPanel.Dock="Bottom" Text="Offline desktop edition" Foreground="#D9E6D8" FontSize="11" Margin="0,0,0,6"/>
     </DockPanel></Border>
