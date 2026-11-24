@@ -15,6 +15,11 @@ export default defineConfig({
     },
   },
   vite: {
+    // WebView2 109 is the final runtime available for Windows 7 and 8/8.1.
+    // Compile JavaScript for that browser engine in this legacy-only branch.
+    build: {
+      target: "chrome109",
+    },
     server: {
       host: "127.0.0.1",
       port: 1420,
