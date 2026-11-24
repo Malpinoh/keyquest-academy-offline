@@ -49,6 +49,7 @@ namespace KeyQuest.Academy.Native
             HomePanel.Visibility = Visibility.Collapsed;
             PracticePanel.Visibility = Visibility.Collapsed;
             InfoPanel.Visibility = Visibility.Collapsed;
+            GamesPanel.Visibility = Visibility.Collapsed;
             LessonPanel.Visibility = Visibility.Visible;
             if (LessonList.SelectedIndex < 0 && LessonCatalog.All.Count > 0) LessonList.SelectedIndex = 0;
         }
@@ -92,6 +93,7 @@ namespace KeyQuest.Academy.Native
             LessonPanel.Visibility = Visibility.Collapsed;
             HomePanel.Visibility = Visibility.Collapsed;
             InfoPanel.Visibility = Visibility.Collapsed;
+            GamesPanel.Visibility = Visibility.Collapsed;
             PracticePanel.Visibility = Visibility.Visible;
             TypingInput.Focus();
         }
@@ -165,6 +167,7 @@ namespace KeyQuest.Academy.Native
             PracticePanel.Visibility = Visibility.Collapsed;
             HomePanel.Visibility = Visibility.Collapsed;
             InfoPanel.Visibility = Visibility.Collapsed;
+            GamesPanel.Visibility = Visibility.Collapsed;
             LessonPanel.Visibility = Visibility.Visible;
         }
 
