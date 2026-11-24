@@ -1,0 +1,18 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyQuest.Academy.Native", "KeyQuest.Academy.Native\KeyQuest.Academy.Native.csproj", "{E1A2F89D-4A1C-4A79-9B6A-4F0E6C3A9D71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1A2F89D-4A1C-4A79-9B6A-4F0E6C3A9D71}.Debug|Any CPU.ActiveCfg = Debug|AnyCPU
+		{E1A2F89D-4A1C-4A79-9B6A-4F0E6C3A9D71}.Debug|Any CPU.Build.0 = Debug|AnyCPU
+		{E1A2F89D-4A1C-4A79-9B6A-4F0E6C3A9D71}.Release|Any CPU.ActiveCfg = Release|AnyCPU
+		{E1A2F89D-4A1C-4A79-9B6A-4F0E6C3A9D71}.Release|Any CPU.Build.0 = Release|AnyCPU
+	EndGlobalSection
+EndGlobal
