@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using System.Linq;
 
 namespace KeyQuest.Academy.Native
 {
@@ -12,10 +13,12 @@ namespace KeyQuest.Academy.Native
         private readonly DispatcherTimer practiceTimer = new DispatcherTimer();
         private string activeTarget = String.Empty;
         private bool exerciseCompleted;
+        private readonly ProgressStore progressStore = new ProgressStore();
 
         public MainWindow()
         {
             InitializeComponent();
+            progressStore.Load();
             LessonList.ItemsSource = LessonCatalog.All;
             if (LessonCatalog.All.Count > 0) LessonList.SelectedIndex = 0;
             practiceTimer.Interval = TimeSpan.FromSeconds(1);
@@ -111,7 +114,15 @@ namespace KeyQuest.Academy.Native
                 practiceClock.Stop();
                 practiceTimer.Stop();
                 UpdateSpeed(correct);
-                PracticeStatus.Text = "Exercise completed. Accuracy: " + accuracy.ToString("0.0") + "%. You can return to the lesson or repeat the exercise.";
+                PracticeStatus.Text = "Exercise completed. Accuracy: " + accuracy.ToString("0.0") + "%. Your result has been saved on this computer.";
+                TypingLesson completedLesson = LessonList.SelectedItem as TypingLesson;
+                LessonExercise completedExercise = ExerciseList.SelectedItem as LessonExercise;
+                if (completedLesson != null && completedExercise != null)
+                {
+                    int finalWpm = Math.Max(0, (int)Math.Round((correct / 5.0) / Math.Max(practiceClock.Elapsed.TotalMinutes, 0.0001)));
+                    progressStore.RecordCompletion(completedLesson.Id, completedLesson.Title, completedExercise.Title, finalWpm, accuracy);
+                    progressStore.Save();
+                }
             }
             else if (typed.Length > activeTarget.Length)
             {
@@ -167,8 +178,18 @@ namespace KeyQuest.Academy.Native
             PracticePanel.Visibility = Visibility.Collapsed;
             InfoPanel.Visibility = Visibility.Visible;
             InfoEyebrow.Text = "YOUR PROGRESS";
-            InfoTitle.Text = "Progress tracking is planned next";
-            InfoDescription.Text = "Local progress storage, completed lessons and typing statistics will be added after the native lesson and practice workflows are fully tested.";
+            int completed = progressStore.Records.Count;
+            int bestWpm = progressStore.Records.Count == 0 ? 0 : progressStore.Records.Max(r => r.BestWpm);
+            double bestAccuracy = progressStore.Records.Count == 0 ? 0 : progressStore.Records.Max(r => r.BestAccuracy);
+            InfoTitle.Text = "Your learning progress";
+            string recent = String.Join(Environment.NewLine, progressStore.Records.OrderByDescending(r => r.CompletedAt).Take(8)
+                .Select(r => "• " + r.LessonTitle + " — " + r.ExerciseTitle + " (" + r.BestWpm + " WPM, " + r.BestAccuracy.ToString("0") + "%)"));
+            InfoDescription.Text = "Completed exercises: " + completed
+                + Environment.NewLine + "Best speed: " + bestWpm + " WPM"
+                + Environment.NewLine + "Best accuracy: " + bestAccuracy.ToString("0") + "%"
+                + Environment.NewLine + Environment.NewLine + "RECENT COMPLETIONS"
+                + (String.IsNullOrEmpty(recent) ? Environment.NewLine + "No completed exercises yet. Finish an exercise to save your first result." : Environment.NewLine + recent)
+                + Environment.NewLine + Environment.NewLine + "Progress is stored locally in your Windows user profile. It does not require an internet connection.";
         }
     }
 }
