@@ -16,16 +16,10 @@ jobs:
       - name: Checkout offline repository
         uses: actions/checkout@v4
 
-      - name: Clone private KeyQuest source
-        env:
-          SOURCE_REPO_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
+      - name: Clone public KeyQuest source
         run: |
-          test -n "$SOURCE_REPO_TOKEN" || {
-            echo "::error::SOURCE_REPO_TOKEN secret is not configured."
-            exit 1
-          }
           rm -rf /tmp/keyquest-source
-          git -c http.extraheader="AUTHORIZATION: bearer $SOURCE_REPO_TOKEN" clone --depth 1 https://github.com/Malpinoh/keyquest-academy.git /tmp/keyquest-source
+          git clone --depth 1 https://github.com/Malpinoh/keyquest-academy.git /tmp/keyquest-source
 
       - name: Copy source snapshot
         run: |
