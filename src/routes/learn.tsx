@@ -185,13 +185,10 @@ function Metric({label,value,detail}:{label:string;value:string;detail:string}) 
 
 function CoachIllustration() {
   return <div className="mx-auto w-full max-w-[112px] overflow-hidden rounded-xl border border-[#9da38a] bg-[#d9d7c3] shadow-[0_3px_0_rgba(70,83,61,.35)] dark:border-[#596b52] dark:bg-[#263429]">
-    <img
-      src="https://images.unsplash.com/photo-1758874384359-dc7644cb2be4?auto=format&fit=crop&fm=jpg&q=80&w=500"
-      alt="KeyQuest typing coach"
-      className="aspect-[4/5] w-full object-cover"
-      loading="lazy"
-      referrerPolicy="no-referrer"
-    />
+    <div className="grid aspect-[4/5] place-items-center bg-gradient-to-br from-[#d8d4b8] via-[#aab89b] to-[#536c57]">
+      <div className="grid h-16 w-16 place-items-center rounded-full border-4 border-[#f4f0df] bg-[#405b46] text-xl font-black text-[#f4e8b4] shadow-lg">KQ</div>
+      <span className="sr-only">KeyQuest learning coach illustration</span>
+    </div>
   </div>;
 }
 

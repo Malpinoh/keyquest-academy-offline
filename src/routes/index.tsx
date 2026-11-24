@@ -5,7 +5,6 @@ import { VirtualKeyboard } from "@/components/typing/VirtualKeyboard";
 import { ClassroomArtwork, FingerGuideArtwork } from "@/components/home/ClassroomArtwork";
 import { pageHead } from "@/lib/site";
 import { loadProgress } from "@/lib/progress";
-import { AdSlot } from "@/components/ads/AdSlot";
 
 export const Route = createFileRoute("/")({
   head: () => pageHead({
@@ -64,7 +63,6 @@ function Index() {
         </div>
       </section>
 
-      <AdSlot placement="home-top" format="horizontal" className="py-5 sm:py-7" />
 
       <section className="mx-auto max-w-[1320px] px-4 py-10 sm:px-7 sm:py-14">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
