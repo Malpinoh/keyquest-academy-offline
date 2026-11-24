@@ -99,6 +99,25 @@
         <TextBlock x:Name="InfoEyebrow" Text="TYPING PRACTICE" Foreground="#64776B" FontSize="12" FontWeight="Bold"/>
         <TextBlock x:Name="InfoTitle" Text="Practice with purpose" Foreground="{StaticResource Ink}" FontSize="30" FontWeight="Bold" Margin="0,8"/>
         <TextBlock x:Name="InfoDescription" TextWrapping="Wrap" Foreground="#637066" FontSize="15"/>
+      <StackPanel x:Name="GamesPanel" Visibility="Collapsed">
+        <TextBlock Text="TYPING GAMES" Foreground="#64776B" FontSize="12" FontWeight="Bold"/>
+        <TextBlock Text="60-second Typing Sprint" Foreground="{StaticResource Ink}" FontSize="30" FontWeight="Bold" Margin="0,8,0,5"/>
+        <TextBlock Text="Type as much of the passage as you can before the clock reaches zero. Keep your accuracy high and build a steady rhythm." TextWrapping="Wrap" Foreground="#637066" FontSize="14" Margin="0,0,0,18"/>
+        <Border Background="#FFFFFF" CornerRadius="10" Padding="22" Margin="0,0,0,16"><StackPanel>
+          <TextBlock Text="SPRINT PASSAGE" Foreground="#64776B" FontSize="11" FontWeight="Bold" Margin="0,0,0,10"/>
+          <TextBlock x:Name="GameTarget" TextWrapping="Wrap" FontFamily="Consolas" FontSize="19" Foreground="{StaticResource Forest}"/>
+        </StackPanel></Border>
+        <TextBlock Text="YOUR TYPING" Foreground="#64776B" FontSize="11" FontWeight="Bold" Margin="0,0,0,8"/>
+        <TextBox x:Name="GameInput" FontFamily="Consolas" FontSize="17" Padding="14" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="115" VerticalScrollBarVisibility="Auto" IsEnabled="False" TextChanged="GameInput_TextChanged"/>
+        <UniformGrid Columns="4" Margin="0,16,0,10">
+          <Border Background="#E9E3D5" Padding="12" Margin="0,0,7,0"><StackPanel><TextBlock Text="TIME LEFT" FontSize="10" Foreground="#64776B"/><TextBlock x:Name="GameTimeValue" Text="60s" FontSize="22" FontWeight="Bold" Foreground="{StaticResource Forest}"/></StackPanel></Border>
+          <Border Background="#E9E3D5" Padding="12" Margin="0,0,7,0"><StackPanel><TextBlock Text="SPEED" FontSize="10" Foreground="#64776B"/><TextBlock x:Name="GameSpeedValue" Text="0 WPM" FontSize="22" FontWeight="Bold" Foreground="{StaticResource Forest}"/></StackPanel></Border>
+          <Border Background="#E9E3D5" Padding="12" Margin="0,0,7,0"><StackPanel><TextBlock Text="ACCURACY" FontSize="10" Foreground="#64776B"/><TextBlock x:Name="GameAccuracyValue" Text="100%" FontSize="22" FontWeight="Bold" Foreground="{StaticResource Forest}"/></StackPanel></Border>
+          <Border Background="#E9E3D5" Padding="12"><StackPanel><TextBlock Text="CORRECT" FontSize="10" Foreground="#64776B"/><TextBlock x:Name="GameCorrectValue" Text="0" FontSize="22" FontWeight="Bold" Foreground="{StaticResource Forest}"/></StackPanel></Border>
+        </UniformGrid>
+        <TextBlock x:Name="GameStatus" Text="Press Start Sprint when you are ready. The clock begins with your first keystroke." Foreground="#637066" FontSize="13" TextWrapping="Wrap" Margin="0,4,0,14"/>
+        <StackPanel Orientation="Horizontal"><Button x:Name="GameStartButton" Content="Start sprint" Width="130" Margin="0,0,10,0" Click="StartGame_Click"/><Button Content="Restart" Width="110" Click="RestartGame_Click"/></StackPanel>
+      </StackPanel>
       </StackPanel>
     </Grid></ScrollViewer>
   </Grid>
