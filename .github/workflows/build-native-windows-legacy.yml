@@ -1,0 +1,35 @@
+name: Build Native Windows Legacy Edition
+
+on:
+  push:
+    branches:
+      - native-windows-legacy
+    paths:
+      - "native-windows/**"
+      - ".github/workflows/build-native-windows-legacy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-native-wpf:
+    name: Build native WPF application
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build native application
+        run: msbuild native-windows/KeyQuest.Academy.Native.sln /m /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkRootPath="C:\\Program Files (x86)\\Reference Assemblies\\Microsoft\\Framework"
+
+      - name: Upload native application build
+        uses: actions/upload-artifact@v4
+        with:
+          name: keyquest-native-windows-build
+          path: native-windows/KeyQuest.Academy.Native/bin/Release/
+          if-no-files-found: error
+          retention-days: 30
