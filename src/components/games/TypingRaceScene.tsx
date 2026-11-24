@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
 type Props = { progress: number; rivalProgress: number; speed: number; errorSignal: number; active: boolean };
@@ -332,54 +331,7 @@ export function TypingRaceScene({ progress, rivalProgress, speed, errorSignal, a
       scene.add(car); addCarShadow();
     });
 
-    // Load a detailed production car model; keep the local car mesh as an offline fallback.
-    let modelLoadCancelled = false;
-    const carLoader = new GLTFLoader();
-    carLoader.load(
-      "https://raw.githubusercontent.com/mrdoob/three.js/r180/examples/models/gltf/ferrari.glb",
-      (gltf) => {
-        if (modelLoadCancelled) return;
-        const source = gltf.scene;
-        const bounds = new THREE.Box3().setFromObject(source);
-        const size = bounds.getSize(new THREE.Vector3());
-        const scale = 4.25 / Math.max(size.z, size.x, 0.001);
-        source.scale.setScalar(scale);
-        const scaledBounds = new THREE.Box3().setFromObject(source);
-        source.position.x -= (scaledBounds.min.x + scaledBounds.max.x) / 2;
-        source.position.y -= scaledBounds.min.y;
-        source.position.z -= (scaledBounds.min.z + scaledBounds.max.z) / 2;
-        cars.forEach((oldCar) => scene.remove(oldCar));
-        carShadows.forEach((shadow) => scene.remove(shadow));
-        cars.length = 0; carShadows.length = 0;
-        const tints = [0x087fb5, 0xb92f24, 0xb28a20, 0x7445b6];
-        for (let i = 0; i < 4; i++) {
-          const model = source.clone(true);
-          model.traverse((object) => {
-            if (object instanceof THREE.Mesh) {
-              object.castShadow = true; object.receiveShadow = true;
-              if (Array.isArray(object.material)) {
-                object.material = object.material.map((material) => {
-                  const copy = material.clone();
-                  if ("color" in copy && (copy as THREE.MeshStandardMaterial).color) {
-                    (copy as THREE.MeshStandardMaterial).color.lerp(new THREE.Color(tints[i]), i === 0 ? 0.16 : 0.32);
-                  }
-                  return copy;
-                });
-              } else {
-                const copy = object.material.clone();
-                if ("color" in copy && (copy as THREE.MeshStandardMaterial).color) {
-                  (copy as THREE.MeshStandardMaterial).color.lerp(new THREE.Color(tints[i]), i === 0 ? 0.16 : 0.32);
-                }
-                object.material = copy;
-              }
-            }
-          });
-          scene.add(model); cars.push(model); addCarShadow();
-        }
-      },
-      undefined,
-      (error) => console.warn("Detailed race car model could not be loaded; using the built-in fallback.", error)
-    );
+    // Built-in Three.js car meshes are used so the race scene works offline.
     const clock = new THREE.Clock();
     let raf = 0;
     let previousErrorSignal = 0;
@@ -464,7 +416,7 @@ export function TypingRaceScene({ progress, rivalProgress, speed, errorSignal, a
     animate();
     const resize = () => { const w = Math.max(1, host.clientWidth), h = Math.max(1, host.clientHeight); camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); };
     const observer = new ResizeObserver(resize); observer.observe(host);
-    return () => { modelLoadCancelled = true; cancelAnimationFrame(raf); observer.disconnect(); scene.environment?.dispose(); skyTexture?.dispose(); grassTexture?.dispose(); asphaltTexture?.dispose(); scene.traverse((o) => { if (o instanceof THREE.Mesh || o instanceof THREE.InstancedMesh) { o.geometry.dispose(); const mats = Array.isArray(o.material) ? o.material : [o.material]; mats.forEach((m) => m.dispose()); } }); renderer.dispose(); renderer.domElement.remove(); };
+    return () => { cancelAnimationFrame(raf); observer.disconnect(); scene.environment?.dispose(); skyTexture?.dispose(); grassTexture?.dispose(); asphaltTexture?.dispose(); scene.traverse((o) => { if (o instanceof THREE.Mesh || o instanceof THREE.InstancedMesh) { o.geometry.dispose(); const mats = Array.isArray(o.material) ? o.material : [o.material]; mats.forEach((m) => m.dispose()); } }); renderer.dispose(); renderer.domElement.remove(); };
   }, []);
 
   return <div ref={hostRef} className="relative h-[500px] w-full overflow-hidden rounded-2xl bg-sky-200 sm:h-[580px] lg:h-[660px] [section:fullscreen_&]:h-[70vh] [section:fullscreen_&]:min-h-[420px]" aria-label="Original 3D racing circuit with player car and rival racers"><div className="pointer-events-none absolute left-3 top-3 z-10 rounded-lg border border-white/30 bg-slate-950/65 px-3 py-2 text-[10px] font-black uppercase tracking-[.18em] text-white shadow-lg">KeyQuest Grand Prix · 3D Circuit</div><div className="pointer-events-none absolute bottom-3 left-3 z-10 rounded-lg bg-slate-950/65 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-white">Blue car: You</div></div>;
