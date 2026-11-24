@@ -1,0 +1,297 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-cyan: var(--cyan);
+  --color-cyan-foreground: var(--cyan-foreground);
+  --color-cyan-bright: var(--cyan-bright);
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-key: var(--key);
+  --color-key-edge: var(--key-edge);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.96 0.025 92);
+  --foreground: oklch(0.24 0.035 105);
+  --card: oklch(0.985 0.018 92);
+  --card-foreground: oklch(0.24 0.035 105);
+  --popover: oklch(0.985 0.018 92);
+  --popover-foreground: oklch(0.24 0.035 105);
+  --primary: oklch(0.43 0.09 133);
+  --primary-foreground: oklch(0.98 0.01 95);
+  --secondary: oklch(0.91 0.035 92);
+  --secondary-foreground: oklch(0.28 0.04 110);
+  --muted: oklch(0.925 0.025 92);
+  --muted-foreground: oklch(0.47 0.035 105);
+  --accent: oklch(0.89 0.08 88);
+  --accent-foreground: oklch(0.29 0.06 105);
+  --cyan: oklch(0.62 0.11 78);
+  --cyan-foreground: oklch(0.99 0 0);
+  --cyan-bright: oklch(0.84 0.12 205);
+  --success: oklch(0.52 0.14 155);
+  --destructive: oklch(0.55 0.21 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.82 0.035 92);
+  --input: oklch(0.78 0.04 92);
+  --ring: oklch(0.58 0.12 130);
+  --navy: oklch(0.25 0.035 115);
+  --navy-foreground: oklch(0.97 0.01 270);
+  --key: oklch(0.98 0.012 92);
+  --key-edge: oklch(0.76 0.035 92);
+  --chart-1: oklch(0.52 0.22 285);
+  --chart-2: oklch(0.6 0.12 215);
+  --chart-3: oklch(0.52 0.14 155);
+  --chart-4: oklch(0.75 0.15 80);
+  --chart-5: oklch(0.6 0.2 25);
+  --gradient-hero: radial-gradient(1200px 500px at 85% -10%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 60%),
+    radial-gradient(900px 400px at -10% 10%, color-mix(in oklab, var(--cyan) 16%, transparent), transparent 60%);
+  --gradient-brand: linear-gradient(120deg, var(--primary), var(--cyan));
+  --shadow-card: 0 1px 2px color-mix(in oklab, var(--navy) 8%, transparent), 0 8px 24px -12px color-mix(in oklab, var(--navy) 18%, transparent);
+}
+
+.dark {
+  --background: oklch(0.19 0.025 125);
+  --foreground: oklch(0.94 0.018 92);
+  --card: oklch(0.24 0.03 125);
+  --card-foreground: oklch(0.94 0.018 92);
+  --popover: oklch(0.24 0.03 125);
+  --popover-foreground: oklch(0.94 0.018 92);
+  --primary: oklch(0.76 0.12 88);
+  --primary-foreground: oklch(0.2 0.025 125);
+  --secondary: oklch(0.29 0.03 125);
+  --secondary-foreground: oklch(0.94 0.018 92);
+  --muted: oklch(0.28 0.03 125);
+  --muted-foreground: oklch(0.73 0.025 92);
+  --accent: oklch(0.34 0.045 125);
+  --accent-foreground: oklch(0.92 0.035 88);
+  --cyan: oklch(0.82 0.12 88);
+  --cyan-foreground: oklch(0.16 0.04 272);
+  --cyan-bright: oklch(0.84 0.12 205);
+  --success: oklch(0.76 0.15 155);
+  --destructive: oklch(0.7 0.18 22);
+  --destructive-foreground: oklch(0.16 0.04 272);
+  --border: oklch(0.39 0.035 125);
+  --input: oklch(0.42 0.035 125);
+  --ring: oklch(0.78 0.12 88);
+  --navy: oklch(0.14 0.025 125);
+  --navy-foreground: oklch(0.97 0.01 270);
+  --key: oklch(0.29 0.03 125);
+  --key-edge: oklch(0.19 0.025 125);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    font-family: var(--font-sans);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+@utility bg-hero {
+  background-image: var(--gradient-hero);
+}
+@utility text-gradient {
+  background-image: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-brand {
+  background-image: var(--gradient-brand);
+}
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+@utility caret-blink {
+  animation: caret 1s step-end infinite;
+}
+@keyframes caret {
+  50% { opacity: 0; }
+}
+
+/* Article typography */
+@utility prose-kq {
+  & h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.25rem; margin-bottom: 0.75rem; }
+  & h3 { font-size: 1.15rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+  & p { line-height: 1.75; margin-bottom: 1rem; }
+  & ul, & ol { margin: 0 0 1rem 1.25rem; line-height: 1.7; }
+  & ul { list-style: disc; }
+  & ol { list-style: decimal; }
+  & li { margin-bottom: 0.35rem; }
+  & a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+  & code { font-family: var(--font-mono); background: var(--color-muted); padding: 0.1rem 0.35rem; border-radius: 0.3rem; font-size: 0.9em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* KeyQuest's classic typing-lab visual language */
+.kq-classic-panel {
+  border: 1px solid color-mix(in oklab, var(--color-foreground) 18%, transparent);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--color-card) 96%, white), var(--color-card));
+  box-shadow: 0 2px 0 color-mix(in oklab, var(--color-foreground) 12%, transparent), 0 14px 32px -24px color-mix(in oklab, var(--color-foreground) 45%, transparent);
+}
+.kq-inset-panel {
+  border: 1px solid color-mix(in oklab, var(--color-foreground) 17%, transparent);
+  border-radius: .75rem;
+  background: color-mix(in oklab, var(--color-muted) 72%, var(--color-background));
+  box-shadow: inset 0 2px 7px color-mix(in oklab, var(--color-foreground) 9%, transparent);
+}
+.kq-metal-strip {
+  background: linear-gradient(180deg, #f4f2e8 0%, #c9c8bd 48%, #eeeade 100%);
+  border-block: 1px solid #aaa99f;
+  color: #28302b;
+}
+.dark .kq-metal-strip {
+  background: linear-gradient(180deg, #59615b 0%, #343c36 48%, #4c554d 100%);
+  border-color: #68736a;
+  color: #f3f0e4;
+}
+
+/* Shared classic desktop-classroom components (Stage 1 foundation).
+   These tokens and primitives are reused by each approved KeyQuest screen. */
+:root {
+  --kq-forest: #252d27;
+  --kq-forest-raised: #303a31;
+  --kq-forest-border: #65705f;
+  --kq-cream: #f3efd9;
+  --kq-paper: #fffbea;
+  --kq-gold: #e4cd70;
+  --kq-gold-deep: #9c8844;
+  --kq-ink: #303a2e;
+}
+
+.kq-window {
+  overflow: hidden;
+  border: 1px solid #858a70;
+  border-radius: .65rem;
+  background: var(--kq-cream);
+  color: var(--kq-ink);
+  box-shadow: 0 3px 0 rgb(32 42 34 / 18%), 0 14px 32px -24px rgb(20 28 20 / 45%);
+}
+.kq-window-titlebar {
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  border-bottom: 1px solid #68745b;
+  background: var(--kq-forest);
+  padding: .65rem 1rem;
+  color: #f2efd9;
+}
+.kq-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  border-bottom: 1px solid #b8b69a;
+  background: #e2dfc6;
+  padding: .65rem 1rem;
+}
+.kq-toolbar-button {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  border: 1px solid #9da38a;
+  border-radius: .35rem;
+  background: #f7f3df;
+  padding: .4rem .75rem;
+  color: #3d4938;
+  font-size: .8rem;
+  font-weight: 700;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.kq-toolbar-button:hover { background: #fff; border-color: #617a4c; }
+.kq-action-button {
+  display: inline-flex;
+  min-height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: 1px solid var(--kq-gold-deep);
+  border-radius: .4rem;
+  background: var(--kq-gold);
+  padding: .55rem 1rem;
+  color: #283126;
+  font-weight: 800;
+  box-shadow: 0 2px 0 var(--kq-gold-deep), inset 0 1px rgb(255 255 255 / 55%);
+}
+.kq-action-button:hover { background: #f0dc8a; }
+.dark .kq-window { border-color: #596b52; background: #28362b; color: #f2efd9; }
+.dark .kq-toolbar { border-color: #596b52; background: #354432; }
+.dark .kq-toolbar-button { border-color: #687a5e; background: #26342a; color: #f0efd9; }
+.dark .kq-toolbar-button:hover { background: #3b4b3b; }
+
+
+
+/* Mobile visitors can read the learning content, but keyboard-dependent practice is reserved for desktop. */
+.desktop-practice-notice { display: none; }
+@media (max-width: 767px) {
+  .desktop-practice-notice { display: block; }
+  .desktop-practice-surface { display: none !important; }
+}
