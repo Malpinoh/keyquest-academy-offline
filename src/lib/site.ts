@@ -1,9 +1,8 @@
-// Central site configuration. Set VITE_SITE_URL at build time to produce
-// absolute canonical and Open Graph URLs.
+// Desktop/offline app configuration. No website host or canonical URL is required.
 export const SITE_NAME = "KeyQuest Academy";
 export const SITE_TAGLINE = "Learn to Type. Level Up. Master Your Keyboard.";
-export const SITE_URL: string = (import.meta.env["VITE_SITE_URL"] as string | undefined)?.replace(/\/$/, "") || "https://www.keyqyest.online";
-export const SOCIAL_PREVIEW_IMAGE = `${SITE_URL}/keyquest-social-preview.png`;
+export const SITE_URL: string = (import.meta.env["VITE_SITE_URL"] as string | undefined)?.replace(/\/$/, "") || "";
+export const SOCIAL_PREVIEW_IMAGE = "/keyquest-social-preview.png";
 
 // Public support channels displayed on the Contact page.
 export const CONTACT_EMAIL = "malpinoh1@gmail.com";
