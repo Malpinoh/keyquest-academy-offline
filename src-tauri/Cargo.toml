@@ -18,3 +18,5 @@ time = "=0.3.44"
 # idna_adapter 1.2 pulls ICU 2.x, which requires Cargo edition2024.
 # Version 1.1 uses the older Unicode backend and remains compatible with Cargo 1.77.
 idna_adapter = "=1.1.0"
+# Keep TOML serialization compatible with Cargo 1.77; newer toml_writer releases use edition 2024.
+toml_writer = "=1.0.4"
