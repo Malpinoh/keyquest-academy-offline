@@ -16,18 +16,29 @@ jobs:
       - name: Checkout offline repository
         uses: actions/checkout@v4
 
-      - name: Clone current KeyQuest source
+      - name: Clone private KeyQuest source
+        env:
+          SOURCE_REPO_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
         run: |
+          test -n "$SOURCE_REPO_TOKEN" || {
+            echo "::error::SOURCE_REPO_TOKEN secret is not configured."
+            exit 1
+          }
           rm -rf /tmp/keyquest-source
-          git clone --depth 1 https://github.com/Malpinoh/keyquest-academy.git /tmp/keyquest-source
+          git -c http.extraheader="AUTHORIZATION: bearer $SOURCE_REPO_TOKEN" clone --depth 1 https://github.com/Malpinoh/keyquest-academy.git /tmp/keyquest-source
 
       - name: Copy source snapshot
         run: |
           find /tmp/keyquest-source -mindepth 1 -maxdepth 1 ! -name .git -exec cp -a {} . \;
           rm -f .env
+          rm -f public/ads.txt
           cat > .env.example <<'EOF'
 # Offline KeyQuest does not require Supabase or cloud credentials.
 EOF
+
+      - name: Remove online-only workflow files
+        run: |
+          rm -f .github/workflows/import-keyquest.yml
 
       - name: Commit imported source
         run: |
