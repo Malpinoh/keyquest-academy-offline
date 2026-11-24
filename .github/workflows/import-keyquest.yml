@@ -1,3 +1,4 @@
+# This workflow runs automatically when this file changes on main.
 name: Import KeyQuest source
 
 on:
