@@ -20,16 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
 
-      - name: Build native application
-        run: msbuild native-windows/KeyQuest.Academy.Native.sln /m /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkRootPath="C:\\Program Files (x86)\\Reference Assemblies\\Microsoft\\Framework"
+      - name: Restore and build native application
+        run: dotnet build native-windows/KeyQuest.Academy.Native/KeyQuest.Academy.Native.csproj --configuration Release
 
       - name: Upload native application build
         uses: actions/upload-artifact@v4
         with:
           name: keyquest-native-windows-build
-          path: native-windows/KeyQuest.Academy.Native/bin/Release/
+          path: native-windows/KeyQuest.Academy.Native/bin/Release/net461/
           if-no-files-found: error
           retention-days: 30
