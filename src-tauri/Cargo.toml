@@ -15,3 +15,6 @@ tauri = { version = "=2.11.5", features = [] }
 tauri-utils = "=2.9.3"
 # Keep the dependency compatible with the Rust toolchain required by this legacy target.
 time = "=0.3.44"
+# idna_adapter 1.2 pulls ICU 2.x, which requires Cargo edition2024.
+# Version 1.1 uses the older Unicode backend and remains compatible with Cargo 1.77.
+idna_adapter = "=1.1.0"
